@@ -17,14 +17,33 @@ class App extends Component {
 
   render() {
     return html`
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'textbook'} value=textbook />textbook</label>
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'sans'} value=sans />sans-serif</label>
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'serif'} value=serif />serif</label>
-      <ul class="${this.state.font}">
-        <li lang=zh-hans><input class=txt type=text value="${this.state.text}" oninput=${this.setText} /></li>
-        <li lang=zh-hant><input class=txt type=text value="${this.state.text}" oninput=${this.setText} /></li>
-        <li lang=ja><input class=txt type=text value="${this.state.text}" oninput=${this.setText} /></li>
-      </ul>
+      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'textbook'}  value=textbook  />textbook</label>
+      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'notosans'}  value=notosans  />Noto Sans</label>
+      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'notoserif'} value=notoserif />Noto Serif</label>
+      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'syssans'}   value=syssans   />sans-serif</label>
+      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'sysserif'}  value=sysserif  />serif</label>
+      <div id=txt class="${this.state.font}">
+        <label>
+          <div class=langlabel>zh-hans</div>
+          <span lang=zh-hans>${this.state.text}</span>
+          <br />
+          <input lang=zh-hans type=text value="${this.state.text}" oninput=${this.setText} />
+        </label>
+        <br />
+        <label>
+          <div class=langlabel>zh-hant</div>
+          <span lang=zh-hant>${this.state.text}</span>
+          <br />
+          <input lang=zh-hant type=text value="${this.state.text}" oninput=${this.setText} />
+        </label>
+        <br />
+        <label>
+          <div class=langlabel>ja</div>
+          <span lang=ja>${this.state.text}</span>
+          <br />
+          <input lang=ja type=text value="${this.state.text}" oninput=${this.setText} />
+        </label>
+      </div>
     `;
   }
 }

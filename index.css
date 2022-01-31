@@ -1,7 +1,7 @@
-@font-face { font-family: 'local Adobe NotDef'; src: url('./fonts/AND-Regular.ttf'); }
-@font-face { font-family: 'local KaiTi'; src: url('./fonts/SIMKAI.TTF'); }
-@font-face { font-family: 'local DFKai-SB'; src: url('./fonts/DFKaiShu-SB-Estd-BF.ttf'); }
-@font-face { font-family: 'local UD Digi Kyokasho N-R'; src: url('./fonts/UDDigiKyokashoN-R-01.ttf'); }
+@font-face { font-family: 'my Adobe NotDef'; src: url('./fonts/AND-Regular.ttf'); }
+@font-face { font-family: 'my KaiTi'; src: url('./fonts/SIMKAI.TTF'); }
+@font-face { font-family: 'my DFKai-SB'; src: url('./fonts/DFKaiShu-SB-Estd-BF.ttf'); }
+@font-face { font-family: 'my UD Digi Kyokasho N-R'; src: url('./fonts/UDDigiKyokashoN-R-01.ttf'); }
 
 @media (prefers-color-scheme: dark) {
     body {
@@ -10,24 +10,31 @@
     }
 }
 
-.txt {
-    background: inherit;
-    color: inherit;
-    font-family: inherit;
-    font-size: 36pt;
-    width: calc(100% - 3em);
+.langlabel {
+    display: inline-block;
+    margin-top: 1em;
+    width: 4em;
+    font-size: 150%;
 }
 
-li[lang]:after { content: " " attr(lang); font-family: sans-serif; }
+#txt input[lang] {
+    box-sizing: border-box;
+    background: inherit;
+    font-size: 36pt;
+    width: 100%;
+}
 
-       [lang=zh-hans] { font-family: "local KaiTi",                "local Adobe NotDef"; }
-.sans  [lang=zh-hans] { font-family: "Noto Sans SC",               "local Adobe NotDef"; }
-.serif [lang=zh-hans] { font-family: "Noto Serif SC",              "local Adobe NotDef"; }
+.syssans   [lang]         { font-family: sans-serif,                "my Adobe NotDef"; }
+.sysserif  [lang]         { font-family: serif,                     "my Adobe NotDef"; }
 
-       [lang=zh-hant] { font-family: "local DFKai-SB",             "local Adobe NotDef"; }
-.sans  [lang=zh-hant] { font-family: "Noto Sans TC",               "local Adobe NotDef"; }
-.serif [lang=zh-hant] { font-family: "Noto Serif TC",              "local Adobe NotDef"; }
+           [lang=zh-hans] { font-family: "my KaiTi",                "my Adobe NotDef"; }
+.notosans  [lang=zh-hans] { font-family: "Noto Sans SC",            "my Adobe NotDef"; }
+.notoserif [lang=zh-hans] { font-family: "Noto Serif SC",           "my Adobe NotDef"; }
 
-       [lang=ja]      { font-family: "local UD Digi Kyokasho N-R", "local Adobe NotDef"; }
-.sans  [lang=ja]      { font-family: "Noto Sans JP",               "local Adobe NotDef"; }
-.serif [lang=ja]      { font-family: "Noto Serif JP",              "local Adobe NotDef"; }
+           [lang=zh-hant] { font-family: "my DFKai-SB",             "my Adobe NotDef"; }
+.notosans  [lang=zh-hant] { font-family: "Noto Sans TC",            "my Adobe NotDef"; }
+.notoserif [lang=zh-hant] { font-family: "Noto Serif TC",           "my Adobe NotDef"; }
+
+           [lang=ja]      { font-family: "my UD Digi Kyokasho N-R", "my Adobe NotDef"; }
+.notosans  [lang=ja]      { font-family: "Noto Sans JP",            "my Adobe NotDef"; }
+.notoserif [lang=ja]      { font-family: "Noto Serif JP",           "my Adobe NotDef"; }
