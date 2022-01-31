@@ -3,7 +3,20 @@
 @font-face { font-family: 'local DFKai-SB'; src: url('./fonts/DFKaiShu-SB-Estd-BF.ttf'); }
 @font-face { font-family: 'local UD Digi Kyokasho N-R'; src: url('./fonts/UDDigiKyokashoN-R-01.ttf'); }
 
-.txt { font-family: inherit; font-size: 36pt; width: calc(100% - 3em); }
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #111;
+        color: white;
+    }
+}
+
+.txt {
+    background: inherit;
+    color: inherit;
+    font-family: inherit;
+    font-size: 36pt;
+    width: calc(100% - 3em);
+}
 
 li[lang]:after { content: " " attr(lang); font-family: sans-serif; }
 
