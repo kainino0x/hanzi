@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<title>hanzi</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+HK&family=Noto+Sans+JP&family=Noto+Sans+KR&family=Noto+Sans+SC&family=Noto+Sans+TC&family=Noto+Serif+JP&family=Noto+Serif+SC&family=Noto+Serif+TC&display=swap" rel="stylesheet"> 
+<style>
+    li:before { font-size: 36pt; content: "一芳　糸　味　誠诚　鐵铁鉄　悲　棧栈桟　驅驱駆　圓圆円 aａ"; }
+
+    li[lang]:after { content: attr(lang); font-family: sans-serif; }
+    li[lang].epson:after { content: attr(lang)".textbook"; font-family: sans-serif; }
+    li[lang].textbook:after { content: attr(lang)".textbook"; font-family: sans-serif; }
+    li[lang].strokes:after { content: attr(lang)".strokeorder"; font-family: sans-serif; }
+
+    [lang=zh-hk]:before { font-family: "Noto Sans HK", "Adobe NotDef"; }
+    [lang=zh-hans]:before, [lang=zh-cn]:before { font-family: "Noto Sans SC", "Adobe NotDef"; }
+    [lang=zh-hans].serif:before, [lang=zh-cn].serif:before { font-family: "Noto Serif SC", "Adobe NotDef"; }
+    [lang=zh-hans].textbook:before, [lang=zh-cn].textbook:before { font-family: "KaiTi", "Adobe NotDef"; }
+    [lang=zh-hant]:before, [lang=zh-tw]:before { font-family: "Noto Sans TC", "Adobe NotDef"; }
+    [lang=zh-hant].serif:before, [lang=zh-tw].serif { font-family: "Noto Serif TC", "Adobe NotDef"; }
+    [lang=zh-hant].textbook:before, [lang=zh-tw].textbook { font-family: "DFKai-SB", "Adobe NotDef"; }
+    [lang=ja]:before { font-family: "Noto Sans JP", "Adobe NotDef"; }
+    [lang=ja].serif:before { font-family: "Noto Serif JP", "Adobe NotDef"; }
+    [lang=ja].epson:before { font-family: "EPSON 教科書体Ｍ", "Adobe NotDef"; }
+    [lang=ja].textbook:before { font-family: "UD Digi Kyokasho N-R", "Adobe NotDef"; }
+    [lang=ja].strokes:before { font-family: "KanjiStrokeOrders", "Adobe NotDef"; }
+    [lang=ko]:before { font-family: "Noto Sans KR"; }
+</style>
+</head>
+<body>
+
+<ul>
+    <li lang=zh-hk>
+    <li lang=zh-hans>
+    <li lang=zh-hans class=serif>
+    <li lang=zh-hans class=textbook> KaiTi
+    <li lang=zh-hant>
+    <li lang=zh-hant class=serif>
+    <li lang=zh-hant class=textbook> DFKai-SB
+    <li lang=ja>
+    <li lang=ja class=serif>
+    <li lang=ja class=epson> Epson Kyokasho
+    <li lang=ja class=textbook> UD Digi Kyokasho
+    <li lang=ja class=strokes>
+    <li lang=ko>
+</ul>
+
+<p lang=ja style="font-size:36pt;font-family:'UD Digi Kyokasho N-R'">一芳　糸　味　誠诚　鐵铁鉄　悲　棧栈桟　驅驱駆　圓圆円 aａ
+<p lang=ja style="font-size:36pt;font-family:'UD Digi Kyokasho NP-R'">一芳　糸　味　誠诚　鐵铁鉄　悲　棧栈桟　驅驱駆　圓圆円 aａ
+<p lang=ja style="font-size:36pt;font-family:'UD Digi Kyokasho NK-R'">一芳　糸　味　誠诚　鐵铁鉄　悲　棧栈桟　驅驱駆　圓圆円 aａ
+
+<p lang=ja style="font-size:36pt;font-family:'UD Digi Kyokasho N-B'">一芳　糸　味　誠诚　鐵铁鉄　悲　棧栈桟　驅驱駆　圓圆円 aａ
+<p lang=ja style="font-size:36pt;font-family:'UD Digi Kyokasho NP-B'">一芳　糸　味　誠诚　鐵铁鉄　悲　棧栈桟　驅驱駆　圓圆円 aａ
+<p lang=ja style="font-size:36pt;font-family:'UD Digi Kyokasho NK-B'">一芳　糸　味　誠诚　鐵铁鉄　悲　棧栈桟　驅驱駆　圓圆円 aａ
+
+</body>
+</html>
