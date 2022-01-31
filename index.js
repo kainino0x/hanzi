@@ -3,7 +3,7 @@ import { html, render, Component } from 'https://unpkg.com/htm/preact/index.mjs?
 class App extends Component {
   state = {
     font: 'textbook',
-    text: '栈棧桟',
+    text: 'a 糸　栈棧桟',
   }
 
   setFont = ev => {
@@ -19,10 +19,10 @@ class App extends Component {
     return html`
       <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'textbook'}  value=textbook  />textbook</label>
       <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'workbook'}  value=workbook  />workbook</label>
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'notosans'}  value=notosans  />Noto Sans</label>
       <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'notoserif'} value=notoserif />Noto Serif</label>
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'syssans'}   value=syssans   />sans-serif</label>
       <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'sysserif'}  value=sysserif  />serif</label>
+      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'notosans'}  value=notosans  />Noto Sans</label>
+      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'syssans'}   value=syssans   />sans-serif</label>
       <div id=txt class="${this.state.font}">
         <label>
           <div class=langlabel>zh-hans</div>

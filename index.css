@@ -11,9 +11,16 @@
     }
 }
 
+#txt>label {
+    display: block;
+    margin-top: 1em;
+}
+#txt>label * {
+    vertical-align: middle;
+}
+
 .langlabel {
     display: inline-block;
-    margin-top: 1em;
     width: 4em;
     font-size: 150%;
 }
@@ -24,6 +31,7 @@
     color: inherit;
     font-size: 36pt;
     width: 100%;
+    height: 1.7em;
 }
 
 .syssans   [lang]         { font-family: sans-serif,                "my Adobe NotDef"; }
