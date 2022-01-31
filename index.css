@@ -25,7 +25,7 @@
     font-size: 150%;
 }
 
-#txt input[lang] {
+.txtline {
     box-sizing: border-box;
     background: inherit;
     color: inherit;
