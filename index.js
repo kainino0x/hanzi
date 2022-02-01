@@ -49,19 +49,22 @@ class App extends Component {
       <input type=range id=fontsize min=25 max=100 value="${this.state.fontSizeLog}" oninput=${this.setFontSize} />
       <style>.txtline { font-size: ${Math.pow(1.05, this.state.fontSizeLog) + 'pt'}; }</style>
       <div id=txt class="${this.state.font}">
-        <label>
-          <h2>zh-hans</h2>
+        <label><h2>zh-hans</h2>
           <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=zh-hans />
         </label>
         <br />
-        <label>
-          <h2>zh-hant</h2>
+        <label><h2>zh-hant</h2>
           <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=zh-hant />
         </label>
         <br />
-        <label>
-          <h2>ja</h2>
+        <label><h2>ja</h2>
           <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=ja />
+        </label>
+        <label><h2>zh-hk</h2>
+          <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=zh-hk />
+        </label>
+        <label><h2>ko</h2>
+          <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=ko />
         </label>
       </div>
     `;

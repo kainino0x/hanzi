@@ -1,8 +1,8 @@
-@font-face { font-family: 'my Adobe NotDef'; src: url('./fonts/AND-Regular.ttf'); }
-@font-face { font-family: 'my KaiTi'; src: url('./fonts/SIMKAI.TTF'); }
-@font-face { font-family: 'my DFKai-SB'; src: url('./fonts/DFKaiShu-SB-Estd-BF.ttf'); }
-@font-face { font-family: 'my UD Digi Kyokasho N-R'; src: url('./fonts/UDDigiKyokashoN-R-01.ttf'); }
-@font-face { font-family: 'my EPSON 教科書体Ｍ'; src: url('./fonts/epkyouka-transfonter.ttf'); }
+@font-face { font-display: swap; font-family: 'my Adobe NotDef';         src: url('./fonts/AND-Regular.ttf');          }
+@font-face { font-display: swap; font-family: 'my KaiTi';                src: url('./fonts/SIMKAI.TTF');               }
+@font-face { font-display: swap; font-family: 'my DFKai-SB';             src: url('./fonts/DFKaiShu-SB-Estd-BF.ttf');  }
+@font-face { font-display: swap; font-family: 'my UD Digi Kyokasho N-R'; src: url('./fonts/UDDigiKyokashoN-R-01.ttf'); }
+@font-face { font-display: swap; font-family: 'my EPSON 教科書体Ｍ';      src: url('./fonts/epkyouka-transfonter.ttf'); }
 
 @media (prefers-color-scheme: dark) {
     body {
@@ -38,3 +38,10 @@
 .workbook  [lang=ja]      { font-family: "my UD Digi Kyokasho N-R", "my Adobe NotDef"; }
 .notosans  [lang=ja]      { font-family: "Noto Sans JP",            "my Adobe NotDef"; }
 .notoserif [lang=ja]      { font-family: "Noto Serif JP",           "my Adobe NotDef"; }
+
+           [lang=zh-hk]   { font-family:                            "my Adobe NotDef"; }
+.notosans  [lang=zh-hk]   { font-family: "Noto Sans HK",            "my Adobe NotDef"; }
+
+           [lang=ko]      { font-family:                            "my Adobe NotDef"; }
+.notosans  [lang=ko]      { font-family: "Noto Sans KR",            "my Adobe NotDef"; }
+.notoserif [lang=ko]      { font-family: "Noto Serif KR",           "my Adobe NotDef"; }
