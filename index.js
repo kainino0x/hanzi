@@ -5,36 +5,101 @@ import htm from 'https://unpkg.com/htm@^3?module';
 
 const html = htm.bind(h);
 
-class Row extends Component {
+const fontfamilies = {
+  'zh-hans Textbook': 'my KaiTi',
+  'zh-hant Textbook': 'my DFKai-SB',
+  'ja Textbook': 'my EPSON 教科書体Ｍ',
+
+  'ja Workbook': 'my UD Digi Kyokasho N-R',
+
+  'zh-hans NotoSerif': 'Noto Serif SC',
+  'zh-hant NotoSerif': 'Noto Serif TC',
+  'ja NotoSerif': 'Noto Serif JP',
+  'ko NotoSerif': 'Noto Serif KR',
+
+  'zh-hans NotoSans': 'Noto Sans SC',
+  'zh-hant NotoSans': 'Noto Sans TC',
+  'ja NotoSans': 'Noto Sans JP',
+  'zh-hk NotoSans': 'Noto Sans HK',
+  'ko NotoSans': 'Noto Sans KR',
+};
+
+class Option extends Component {
+  setState = ev => {
+    this.props.app.setState(state => ({
+      ...state,
+      [this.props.optkey]: {
+        ...state[this.props.optkey],
+        [this.props.optvalue]: ev.target.checked
+      },
+    }));
+  };
+
   render() {
     return html`
-      <label><h2>${this.props.lang}</h2>
-        <textarea class=txtline rows=1 lang=${this.props.lang}
-          oninput=${this.props.app.setText}
-          onscroll=${this.props.app.syncSizeAndScroll}
-          ref=${ref => {
-            if (ref) {
-              new ResizeObserver(() => {
-                this.props.app.syncSizeAndScroll({ target: ref });
-              }).observe(ref);
-            }
-          }}
-        >${this.props.app.state.text}</textarea>
-      </label>
+      <label>
+        <input type=checkbox
+          onchange=${this.setState}
+          checked=${this.props.app.state[this.props.optkey][this.props.optvalue]}
+          value=${this.props.optvalue} />
+        ${this.props.optvalue}
+      </label>`;
+  }
+}
+
+class Row extends Component {
+  render() {
+    let key, fontfamily;
+    if (this.props.font === 'serif') {
+      fontfamily = 'serif';
+    } else if (this.props.font === 'sans-serif') {
+      fontfamily = 'sans-serif';
+    } else {
+      key = `${this.props.lang} ${this.props.font}`;
+      fontfamily = fontfamilies[key];
+      if (!fontfamily) return;
+    }
+
+    if (!this.props.app.state.fonts[this.props.font]) return;
+    if (!this.props.app.state.langs[this.props.lang]) return;
+
+    return html`
+      <h2>${key}</h2>
+      <textarea class="txtline" rows=1 lang=${this.props.lang}
+        style='font-family: "${fontfamily}", "my Adobe NotDef";'
+        oninput=${this.props.app.setText}
+        onscroll=${this.props.app.syncSizeAndScroll}
+        ref=${ref => {
+          if (ref) {
+            new ResizeObserver(() => {
+              this.props.app.syncSizeAndScroll({ target: ref });
+            }).observe(ref);
+          }
+        }}
+      >${this.props.app.state.text}</textarea>
     `;
   }
 }
 
 class App extends Component {
   state = {
-    font: 'textbook',
     fontSizeLog: 73,
     text: '糸　栈棧桟　䯑',
-  };
-
-  setFont = ev => {
-    if (ev.target.checked) this.setState({ font: ev.target.value });
-    return false;
+    fonts: {
+      Textbook: true,
+      Workbook: true,
+      NotoSerif: true,
+      NotoSans: true,
+      serif: false,
+      'sans-serif': false,
+    },
+    langs: {
+      'zh-hans': true,
+      'zh-hant': true,
+      'zh-hk': false,
+      'ja': true,
+      'ko': false,
+    },
   };
 
   setFontSize = ev => {
@@ -64,24 +129,34 @@ class App extends Component {
 
   render() {
     return html`
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'textbook'}  value=textbook  />textbook</label>
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'workbook'}  value=workbook  />workbook</label>
-      <br />
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'notoserif'} value=notoserif />Noto Serif</label>
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'sysserif'}  value=sysserif  />serif</label>
-      <br />
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'notosans'}  value=notosans  />Noto Sans</label>
-      <label><input type=radio name=font onchange=${this.setFont} checked=${this.state.font == 'syssans'}   value=syssans   />sans-serif</label>
-      <br />
-      <input type=range id=fontsize min=25 max=100 value="${this.state.fontSizeLog}" oninput=${this.setFontSize} />
       <style>.txtline { font-size: ${Math.pow(1.05, this.state.fontSizeLog) + 'pt'}; }</style>
-      <div id=txt class="${this.state.font}">
-        <${Row} app=${this} lang=zh-hans />
-        <${Row} app=${this} lang=zh-hant />
-        <${Row} app=${this} lang=ja      />
-        <${Row} app=${this} lang=zh-hk   />
-        <${Row} app=${this} lang=ko      />
+      <div id=txt>
+        ${(() => {
+          const rows = [];
+          for (const font of Object.keys(this.state.fonts)) {
+            for (const lang of Object.keys(this.state.langs)) {
+              rows.push(html`<${Row} app=${this} lang=${lang} font=${font} />`);
+            }
+            rows.push(html`<hr />`);
+          }
+          return rows;
+        })()}
       </div>
+      <table id=opts>
+        <tr>
+          <td>
+            ${Object.keys(this.state.fonts).map(font => html`<${Option} app=${this} optkey=fonts optvalue="${font}" />`)}
+          </td>
+          <td>
+            ${Object.keys(this.state.langs).map(lang => html`<${Option} app=${this} optkey=langs optvalue="${lang}" />`)}
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2 id=fontsizepar>
+            <input type=range id=fontsize min=25 max=100 value="${this.state.fontSizeLog}" oninput=${this.setFontSize} />
+          </td>
+        </tr>
+      </table>
     `;
   }
 }
