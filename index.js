@@ -1,10 +1,35 @@
-import { html, render, Component } from 'https://unpkg.com/htm/preact/index.mjs?module'
+//import { html, render, Component } from 'https://unpkg.com/htm@3.1.0/preact/index.mjs?module'
+
+import { h, Component, render } from 'https://unpkg.com/preact@^10?module';
+import htm from 'https://unpkg.com/htm@^3?module';
+
+const html = htm.bind(h);
+
+class Row extends Component {
+  render() {
+    return html`
+      <label><h2>${this.props.lang}</h2>
+        <textarea class=txtline rows=1 lang=${this.props.lang}
+          oninput=${this.props.app.setText}
+          onscroll=${this.props.app.syncSizeAndScroll}
+          ref=${ref => {
+            if (ref) {
+              new ResizeObserver(() => {
+                this.props.app.syncSizeAndScroll({ target: ref });
+              }).observe(ref);
+            }
+          }}
+        >${this.props.app.state.text}</textarea>
+      </label>
+    `;
+  }
+}
 
 class App extends Component {
   state = {
     font: 'textbook',
     fontSizeLog: 73,
-    text: 'a 糸　栈棧桟',
+    text: '糸　栈棧桟　䯑',
   };
 
   setFont = ev => {
@@ -20,18 +45,20 @@ class App extends Component {
     this.setState({ text: ev.target.value });
   };
 
-  syncScroll = ev => {
+  syncSizeAndScroll = ev => {
     if (ev.target._syncing) {
       ev.target._syncing = false;
       return;
     }
+
     for (const el of document.querySelectorAll('.txtline')) {
       if (el === ev.target) continue;
-      const newScrollLeft = Math.round(ev.target.scrollLeft / ev.target.scrollWidth * el.scrollWidth);
-      if (Math.round(el.scrollLeft) !== newScrollLeft) {
-        el._syncing = true;
-        el.scrollLeft = newScrollLeft;
-      }
+
+      el._syncing = true;
+      el.style.width = ev.target.offsetWidth + 'px';
+      el.style.height = ev.target.offsetHeight + 'px';
+      el.scrollLeft = ev.target.scrollLeft / ev.target.scrollWidth * el.scrollWidth;
+      el.scrollTop = ev.target.scrollTop / ev.target.scrollHeight * el.scrollHeight;
     }
   };
 
@@ -49,23 +76,11 @@ class App extends Component {
       <input type=range id=fontsize min=25 max=100 value="${this.state.fontSizeLog}" oninput=${this.setFontSize} />
       <style>.txtline { font-size: ${Math.pow(1.05, this.state.fontSizeLog) + 'pt'}; }</style>
       <div id=txt class="${this.state.font}">
-        <label><h2>zh-hans</h2>
-          <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=zh-hans />
-        </label>
-        <br />
-        <label><h2>zh-hant</h2>
-          <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=zh-hant />
-        </label>
-        <br />
-        <label><h2>ja</h2>
-          <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=ja />
-        </label>
-        <label><h2>zh-hk</h2>
-          <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=zh-hk />
-        </label>
-        <label><h2>ko</h2>
-          <input type=text class=txtline value="${this.state.text}" oninput=${this.setText} onscroll=${this.syncScroll} lang=ko />
-        </label>
+        <${Row} app=${this} lang=zh-hans />
+        <${Row} app=${this} lang=zh-hant />
+        <${Row} app=${this} lang=ja      />
+        <${Row} app=${this} lang=zh-hk   />
+        <${Row} app=${this} lang=ko      />
       </div>
     `;
   }
