@@ -1,5 +1,3 @@
-//import { html, render, Component } from 'https://unpkg.com/htm@3.1.0/preact/index.mjs?module'
-
 import { h, Component, render } from 'https://unpkg.com/preact@^10?module';
 import htm from 'https://unpkg.com/htm@^3?module';
 
@@ -64,16 +62,16 @@ class Row extends Component {
     if (!this.props.app.state.langs[this.props.lang]) return;
 
     return html`
-      <h2>${key}</h2>
+      <h2 class="txtkey">${key}</h2>
       <textarea class="txtline" rows=1 lang=${this.props.lang}
         style='font-family: "${fontfamily}", "my Adobe NotDef";'
         oninput=${this.props.app.setText}
         onscroll=${this.props.app.syncSizeAndScroll}
         ref=${ref => {
           if (ref) {
-            new ResizeObserver(() => {
-              this.props.app.syncSizeAndScroll({ target: ref });
-            }).observe(ref);
+            //new ResizeObserver(() => {
+            //  this.props.app.syncSizeAndScroll({ target: ref });
+            //}).observe(ref);
           }
         }}
       >${this.props.app.state.text}</textarea>
@@ -84,7 +82,7 @@ class Row extends Component {
 class App extends Component {
   state = {
     fontSizeLog: 73,
-    text: '糸　栈棧桟　䯑',
+    text: '糸　栈棧桟　䯑　心',
     fonts: {
       Textbook: true,
       Workbook: true,
@@ -108,6 +106,9 @@ class App extends Component {
 
   setText = ev => {
     this.setState({ text: ev.target.value });
+    setTimeout(() => {
+      updateLineSizes();
+    }, 0);
   };
 
   syncSizeAndScroll = ev => {
@@ -129,19 +130,11 @@ class App extends Component {
 
   render() {
     return html`
-      <style>.txtline { font-size: ${Math.pow(1.05, this.state.fontSizeLog) + 'pt'}; }</style>
-      <div id=txt>
-        ${(() => {
-          const rows = [];
-          for (const font of Object.keys(this.state.fonts)) {
-            for (const lang of Object.keys(this.state.langs)) {
-              rows.push(html`<${Row} app=${this} lang=${lang} font=${font} />`);
-            }
-            rows.push(html`<hr />`);
-          }
-          return rows;
-        })()}
-      </div>
+      <style>
+        .txtline {
+          font-size: ${Math.pow(1.05, this.state.fontSizeLog)}pt;
+        }
+      </style>
       <table id=opts>
         <tr>
           <td>
@@ -157,9 +150,32 @@ class App extends Component {
           </td>
         </tr>
       </table>
+      <div id=txt>
+        ${(() => {
+          const rows = [];
+          for (const font of Object.keys(this.state.fonts)) {
+            for (const lang of Object.keys(this.state.langs)) {
+              rows.push(html`<${Row} app=${this} lang=${lang} font=${font} />`);
+            }
+            rows.push(html`<hr />`);
+          }
+          return rows;
+        })()}
+        <!-- FIXME: Put a dummy row here to take up space on resize??
+      </div>
     `;
   }
 }
+
+function updateLineSizes() {
+  for (const el of document.querySelectorAll('.txtline')) {
+    el.style.height = '1px';
+    el.style.height = (2 + el.scrollHeight) + 'px';
+  }
+  //requestAnimationFrame(updateLineSizes);
+}
+//requestAnimationFrame(updateLineSizes);
+
 
 globalThis.app = html`<${App} />`;
 render(app, document.body);

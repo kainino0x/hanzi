@@ -12,15 +12,16 @@
 }
 
 body {
+    margin: 0;
     min-width: 350px;
 }
 
 #opts {
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 0;
-    min-width: 350px;
-    width: 100%;
+    margin: 5px;
+    min-width: 340px;
+    width: calc(100% - 10px);
     height: 150px;
     background: #222;
     border: 1px solid #666;
@@ -41,20 +42,23 @@ body {
 }
 
 #txt {
-    position: relative;
-    top: 180px;
+    margin: 5px;
+}
+
+.txtkey {
+    font-size: 12pt;
+    margin: 0;
 }
 
 .txtline {
     box-sizing: border-box;
-    background: inherit;
-    color: inherit;
+    margin: 0;
     min-width: 100%;
     max-width: 100%;
 
-    border: solid 1px #666;
-    min-height: 1.7em;
-    height: 1.7em;
+    background: inherit;
+    color: inherit;
+    border: solid thin #666;
 
-    overflow-y: scroll;
+    overflow: hidden;
 }
