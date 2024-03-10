@@ -63,25 +63,16 @@ class Row extends Component {
 
     return html`
       <h2 class="txtkey">${key}</h2>
-      <textarea class="txtline" rows=1 lang=${this.props.lang}
+      <div class="txtline" lang="${this.props.lang}"
         style='font-family: "${fontfamily}", "my Adobe NotDef";'
-        oninput=${this.props.app.setText}
-        onscroll=${this.props.app.syncSizeAndScroll}
-        ref=${ref => {
-          if (ref) {
-            //new ResizeObserver(() => {
-            //  this.props.app.syncSizeAndScroll({ target: ref });
-            //}).observe(ref);
-          }
-        }}
-      >${this.props.app.state.text}</textarea>
+      >${this.props.app.state.text.trim()}</div>
     `;
   }
 }
 
 class App extends Component {
   state = {
-    fontSizeLog: 73,
+    fontSizeLog: 45,
     text: '糸　栈棧桟　䯑　心',
     fonts: {
       Textbook: true,
@@ -106,37 +97,17 @@ class App extends Component {
 
   setText = ev => {
     this.setState({ text: ev.target.value });
-    setTimeout(() => {
-      updateLineSizes();
-    }, 0);
-  };
-
-  syncSizeAndScroll = ev => {
-    if (ev.target._syncing) {
-      ev.target._syncing = false;
-      return;
-    }
-
-    for (const el of document.querySelectorAll('.txtline')) {
-      if (el === ev.target) continue;
-
-      el._syncing = true;
-      el.style.width = ev.target.offsetWidth + 'px';
-      el.style.height = ev.target.offsetHeight + 'px';
-      el.scrollLeft = ev.target.scrollLeft / ev.target.scrollWidth * el.scrollWidth;
-      el.scrollTop = ev.target.scrollTop / ev.target.scrollHeight * el.scrollHeight;
-    }
   };
 
   render() {
     return html`
       <style>
         .txtline {
-          font-size: ${Math.pow(1.05, this.state.fontSizeLog)}pt;
+          font-size: ${Math.pow(1.05, this.state.fontSizeLog)}vw;
         }
       </style>
-      <table id=opts>
-        <tr>
+      <table id=settings>
+        <tr id=opts>
           <td>
             ${Object.keys(this.state.fonts).map(font => html`<${Option} app=${this} optkey=fonts optvalue="${font}" />`)}
           </td>
@@ -145,8 +116,14 @@ class App extends Component {
           </td>
         </tr>
         <tr>
+          <td colspan=2>
+            <!-- page is lang=en, but this input box has unknown language -->
+            <textarea id=textin lang="" oninput=${this.setText}>${this.state.text}</textarea>
+          </td>
+        </tr>
+        <tr>
           <td colspan=2 id=fontsizepar>
-            <input type=range id=fontsize min=25 max=100 value="${this.state.fontSizeLog}" oninput=${this.setFontSize} />
+            <input type=range id=fontsize min=0 max=93 value="${this.state.fontSizeLog}" oninput=${this.setFontSize} />
           </td>
         </tr>
       </table>
@@ -161,21 +138,10 @@ class App extends Component {
           }
           return rows;
         })()}
-        <!-- FIXME: Put a dummy row here to take up space on resize??
       </div>
     `;
   }
 }
-
-function updateLineSizes() {
-  for (const el of document.querySelectorAll('.txtline')) {
-    el.style.height = '1px';
-    el.style.height = (2 + el.scrollHeight) + 'px';
-  }
-  //requestAnimationFrame(updateLineSizes);
-}
-//requestAnimationFrame(updateLineSizes);
-
 
 globalThis.app = html`<${App} />`;
 render(app, document.body);

@@ -4,11 +4,24 @@
 @font-face { font-display: swap; font-family: 'my UD Digi Kyokasho N-R'; src: url('./fonts/UDDigiKyokashoN-R-01.ttf'); }
 @font-face { font-display: swap; font-family: 'my EPSON 教科書体Ｍ';      src: url('./fonts/epkyouka-transfonter.ttf'); }
 
+:root {
+    --bg: #fff;
+    --bggray: #ddd;
+    --fg: #000;
+    --line: #aaa;
+}
 @media (prefers-color-scheme: dark) {
-    body {
-        background-color: #111;
-        color: white;
+    :root {
+        --bg: #111;
+        --bggray: #333;
+        --fg: #fff;
+        --line: #666;
     }
+}
+
+body {
+    background: var(--bg);
+    color: var(--fg);
 }
 
 body {
@@ -16,15 +29,20 @@ body {
     min-width: 350px;
 }
 
-#opts {
+#settings {
     position: sticky;
     top: 0;
-    margin: 5px;
     min-width: 340px;
-    width: calc(100% - 10px);
-    height: 150px;
-    background: #222;
-    border: 1px solid #666;
+    width: 100%;
+    background: var(--bggray);
+    border-bottom: 1px solid var(--line);
+}
+
+#opts > td {
+    text-align: center;
+    border-color: var(--line);
+    border-style: solid;
+    border-width: 0 thin;
 }
 
 #opts label {
@@ -41,24 +59,31 @@ body {
     min-width: 300px;
 }
 
-#txt {
-    margin: 5px;
+#textin {
+    box-sizing: border-box;
+    min-width: 100%;
+    max-width: 100%;
+
+    font-size: 100%;
+    background: var(--bg);
+    color: inherit;
 }
 
 .txtkey {
     font-size: 12pt;
+    background: var(--bggray);
     margin: 0;
+    padding: 1px 5px;
 }
 
 .txtline {
     box-sizing: border-box;
-    margin: 0;
+    padding: 0 5px;
     min-width: 100%;
     max-width: 100%;
 
-    background: inherit;
     color: inherit;
-    border: solid thin #666;
 
-    overflow: hidden;
+    white-space: pre-wrap;
+    min-height: 12pt;
 }
