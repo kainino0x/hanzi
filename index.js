@@ -72,8 +72,8 @@ class Row extends Component {
 
 class App extends Component {
   state = {
-    fontSizeLog: 45,
-    text: '糸　栈棧桟　䯑　心',
+    fontSizeLog: 44,
+    text: '糸　栈棧桟　䯑　心　り',
     fonts: {
       Textbook: true,
       Workbook: true,
